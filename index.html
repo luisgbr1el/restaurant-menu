@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+    <title>Restaurant Menu</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="alert">
+    Your order was confirmed!
+  </div>
+    <div id="app">
+        Check to add to your final meal
+        <div id="menu">
+            <br>
+            <fieldset id="checkMenu">
+              <input id="rice" name="chk[]" type="checkbox" value="Rice">Rice</input> <br>
+              <input id="bean" name="chk[]" type="checkbox" value="Bean">Bean</input><br>
+              <input id="beef" name="chk[]" type="checkbox" value="Beef">Beef</input><br>
+              <input id="spaghetti" name="chk[]" type="checkbox" value="Spaghetti">Spaghetti</input>
+            </fieldset>
+        </div>
+        <div id="tools">
+            <br>
+            <button id="send" onclick="endOrder();">Order</button>
+        </div>   
+    </div>
+    
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="receipt"></p>
+        <button id="confirm" onclick="confirmOrder();" style="display: none;">Confirm order</button>
+        </div>
+    
+    </div>
+</body>
+<script>
+    // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("send");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+
+
+  let order = 0.0;
+  let finalReceipt;
+
+  var receipt = document.getElementById("receipt");
+
+  var checks = $('input[name="chk[]"]:checked').length;
+
+  var eachFood = $('input[name="chk[]"]:checked');
+
+  switch (checks) {
+    case 1:
+      order = checks * 2.50; 
+      receipt.innerHTML = "You choosed <b>1</b> item:<br>- " + eachFood[0].value + " <br><br><b>ORDER PRICE:</b><br>$ " + order + "0";
+      $("#confirm").css({"display": "block"})
+      finalReceipt = eachFood[0].value;
+      break;
+    case 2:
+      order = checks * 2.50; 
+      receipt.innerHTML = `You choosed <b>2</b> items:<br> - ${eachFood[0].value}<br>- ${eachFood[1].value} <br><br><b>ORDER PRICE:</b><br>$ ${order}.00`;
+      $("#confirm").css({"display": "block"})
+      break;
+    case 3:
+      order = checks * 2.50; 
+      receipt.innerHTML = `You choosed <b>3</b> items:<br> - ${eachFood[0].value}<br>- ${eachFood[1].value}<br>- ${eachFood[2].value} <br><br><b>ORDER PRICE:</b><br>$ ${order}0`;
+      $("#confirm").css({"display": "block"})
+      break;
+    case 4:
+      order = checks * 2.50; 
+      receipt.innerHTML = `You choosed <b>4</b> items:<br> - ${eachFood[0].value}<br>- ${eachFood[1].value}<br>- ${eachFood[2].value}<br>- ${eachFood[3].value} <br><br><b>ORDER PRICE:</b><br>$ ${order}.00`;
+      $("#confirm").css({"display": "block"})
+      break;
+    default:
+      order = checks * 2.50; 
+      receipt.innerHTML = "You choosed <b>no item</b>. <br><br><b>ORDER PRICE:</b><br>$ " + order + ".00";
+      $("#confirm").css({"display": "none"})
+      break;
+  }
+
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+function confirmOrder() {
+  setTimeout(() => {
+    modal.style.display = "none";
+    $('.alert').fadeIn();
+
+    setTimeout(() => {
+      $('.alert').fadeOut();
+    }, 3000);
+  }, 500);
+  
+}
+</script>
+<script src="scripts/index.js"></script>
+</html>
